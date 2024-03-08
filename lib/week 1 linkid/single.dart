@@ -43,6 +43,7 @@ class Linkidlist {
     }
     prv?.next = temp?.next;
   }
+//midvalue finfd
 
   Node? midd() {
     Node? temp = head;
