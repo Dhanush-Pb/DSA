@@ -3,13 +3,15 @@ class Node {
   Node? next;
 
   Node(int data) {
+    // ignore: prefer_initializing_formals
     this.data = data;
   }
 }
 
+// ignore: camel_case_types
 class linkidlist {
-  Node? head = null;
-  Node? tail = null;
+  Node? head;
+  Node? tail;
 
   void addnode(int data) {
     Node newnode = Node(data);
