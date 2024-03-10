@@ -1,23 +1,25 @@
 class Node {
-  Node? next;
   dynamic data;
-  String? key;
+
+  dynamic key;
+  Node? next;
+
   Node(this.key, this.data);
 }
 
-class hashtable {
+// ignore: camel_case_types
+class hastable {
   List<Node?>? table;
 
   int size;
-  hashtable(this.size) {
+
+  hastable(this.size) {
     table = List.generate(size, (index) => null);
   }
 
-  void add(String key, dynamic data) {
-    int index = key.hashCode % size;
-    print(index);
-
+  void add(dynamic key, dynamic data) {
     Node newnode = Node(key, data);
+    int index = key.hashCode % size;
     if (table?[index] == null) {
       table?[index] = newnode;
     } else {
@@ -26,91 +28,124 @@ class hashtable {
     }
   }
 
-  get(String key) {
+  void get(dynamic key) {
     int index = key.hashCode % size;
     Node? temp = table?[index];
     while (temp != null) {
       if (temp.key == key) {
-        print('value $key founded in index $index :${temp.data} ');
-        return;
+        print('$key is ${temp.data}');
       }
       temp = temp.next;
     }
   }
 
-  getall() {
+  void disply() {
     for (var i = 0; i < table!.length; i++) {
       Node? temp = table?[i];
       while (temp != null) {
-        print('${temp.data} position is $i');
+        print('${temp.key} is ${temp.data} index position is $i');
         temp = temp.next;
       }
+    }
+  }
+
+  void remove(dynamic key) {
+    int index = key.hashCode % size;
+    Node? temp = table?[index], prv;
+    while (temp != null && temp.key != key) {
+      prv = temp;
+      temp = temp.next;
+    }
+    if (temp?.key == key && prv == null) {
+      table?[index] = temp?.next;
+    } else {
+      prv?.next = temp?.next;
+    }
+  }
+
+  void updatee(dynamic key, dynamic newdata) {
+    int index = key.hashCode % size;
+    Node? temp = table?[index];
+    while (temp != null) {
+      if (temp.key == key) {
+        temp.data = newdata;
+      }
+      temp = temp.next;
     }
   }
 }
 
 void main() {
-  hashtable has = hashtable(10);
-  has.add('A', 1);
-  has.add('B', 20);
-  has.add('c', 33);
-  has.get('');
-  has.getall();
+  hastable hash = hastable(12);
+  hash.add("Name", "Dhanush");
+  hash.add("age", "50");
+  hash.add("state", "Kerala");
+  hash.add("Phone", "9947");
+  hash.add("adres", "kannur");
+  hash.updatee("state", 'tamil');
+
+  hash.disply();
 }
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- // class Node {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// class Node {
 //   dynamic data;
 //   Node? next;
-//   String? key;
+//   dynamic key;
 //   Node(this.key, this.data);
 // }
 
-// // ignore: camel_case_types
-// class hashtable {
+// class hastable {
 //   List<Node?>? table;
 //   int size;
 
-//   hashtable(this.size) {
+//   hastable(this.size) {
 //     table = List.generate(size, (index) => null);
 //   }
 
-//   add(String key, dynamic data) {
+//   void add(dynamic key, dynamic data) {
 //     int index = key.hashCode % size;
-//     Node newnode = Node(key, data);
+//     Node? newnode = Node(key, data);
+
 //     if (table?[index] == null) {
 //       table?[index] = newnode;
 //     } else {
@@ -119,38 +154,87 @@ void main() {
 //     }
 //   }
 
-//   get(String key) {
+//   void get(dynamic key) {
 //     int index = key.hashCode % size;
+
 //     Node? temp = table?[index];
 
 //     while (temp != null) {
 //       if (temp.key == key) {
-//         print('the value found in index $index ${temp.data}');
-//         return;
+//         print('the $key is ${temp.data}');
 //       }
 //       temp = temp.next;
 //     }
 //   }
 
-//   getAll() {
+//   void display() {
 //     for (var i = 0; i < table!.length; i++) {
 //       Node? temp = table?[i];
 //       while (temp != null) {
-//         print('position of ${temp.data} index $i');
+//         print('${temp.data} its index position is $i');
 //         temp = temp.next;
 //       }
+//     }
+//   }
+
+//   void remove(dynamic key) {
+//     int index = key.hashCode % size;
+
+//     Node? temp = table?[index], prv;
+//     while (temp != null && temp.key != key) {
+//       prv = temp;
+//       temp = temp.next;
+//     }
+//     if (temp?.key == key && prv == null) {
+//       table?[index] = temp?.next;
+//       print('asdf');
+//     } else {
+//       prv?.next = temp?.next;
+//       print('$key poyi');
+//     }
+//   }
+
+//   void update(dynamic key, dynamic newdata) {
+//     int index = key.hashCode % size;
+//     Node? temp = table?[index];
+//     while (temp != null) {
+//       if (temp.key == key) {
+//         temp.data = newdata;
+//       }
+//       temp = temp.next;
 //     }
 //   }
 // }
 
 // void main() {
-//   hashtable has = hashtable(8);
-//   has.add('A', 10);
-//   has.add('b', 20);
-//   has.add('c', 30);
-//   has.add('d', 40);
-//   has.add('e', 50);
-//   has.get('c');
-//   has.getAll();
-// }
+//   hastable hash = hastable(5);
 
+//   hash.add("Name", "Dhanush");
+//   hash.add("Age", "20");
+//   hash.add("adress", "Kannur");
+//   hash.add("height", "169");
+//   hash.update("Age", 100);
+//   hash.remove("Age");
+//   hash.display();
+// }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
