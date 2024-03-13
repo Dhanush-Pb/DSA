@@ -1,5 +1,5 @@
 void bubble(List<int> arr) {
-  for (var i = 0; i < arr.length - 1; i++) {
+  for (var i = 0; i < arr.length; i++) {
     for (var j = i + 1; j < arr.length; j++) {
       if (arr[i] > arr[j]) {
         int temp = arr[i];
@@ -11,7 +11,7 @@ void bubble(List<int> arr) {
 }
 
 void main() {
-  List<int> arr = [10, 5, 8, 1, 3, 0, 50, 78, 4];
+  List<int> arr = [1, 100, 400, 300, 200, 0, 5];
   bubble(arr);
   print(arr);
 }
