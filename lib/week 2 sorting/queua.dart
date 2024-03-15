@@ -1,18 +1,16 @@
 class Node {
   int? data;
   Node? next;
-
   Node(this.data);
 }
 
 // ignore: camel_case_types
 class quea {
   Node? front;
+
   Node? rear;
-
   void enquea(int data) {
-    Node? newnode = Node(data);
-
+    Node newnode = Node(data);
     if (front == null) {
       front = rear = newnode;
     } else {
@@ -21,94 +19,73 @@ class quea {
     }
   }
 
-  void deque() {
+  void dequea() {
     if (front == null) {
       return;
     }
-
     front = front?.next;
   }
 
-  void printff() {
+  void disply() {
     Node? temp = front;
     while (temp != null) {
       print(temp.data);
       temp = temp.next;
     }
   }
-
-  void sum() {
-    int sum = 0;
-
-    Node? temp = front;
-    while (temp != null) {
-      sum = sum + temp.data!;
-      temp = temp.next;
-    }
-    print(' sum is $sum');
-  }
-
-  void mid() {
-    Node? temp = front;
-    Node? temp2 = front;
-
-    while (temp2 != null && temp2.next != null) {
-      temp = temp?.next;
-      temp2 = temp2.next?.next;
-    }
-    return print('mid is${temp!.data}');
-  }
 }
 
 void main() {
   // quea q = quea();
-
   // q.enquea(10);
   // q.enquea(20);
-  // q.enquea(30);
-  // q.sum();
-  // q.printff();
-  qta m = qta();
-  m.enque(10);
-  m.enque(20);
-  m.enque(30);
-  m.enque(40);
-  m.deque();
-  m.printq();
+  // q.enquea(40);
+  // q.enquea(50);
+  // q.enquea(60);
+  // q.enquea(70);
+  // q.enquea(80);
+  // q.enquea(90);
+  // q.enquea(100);
+  // q.enquea(110);
+  // q.enquea(120);
+  // q.dequea();
+  // q.dequea();
+  // q.dequea();
+  // q.dequea();
+  // q.disply();
 
-  print('sdfgasdg');
+  list li = list();
+  li.enquea(10);
+  li.enquea(20);
+  li.enquea(30);
+  li.enquea(40);
+  li.dequea();
+  li.show();
 }
 
 // ignore: camel_case_types
-class qta {
-  List<int> arry = [];
+class list {
+  List<int> quea = [];
   int front = -1;
   int rear = -1;
-
-  void enque(int data) {
+  void enquea(int data) {
     if (front == -1) {
       front = rear = 0;
-      arry.add(data);
+      quea.add(data);
     } else {
+      quea.add(data);
       rear++;
-      arry.add(data);
     }
   }
 
-  void deque() {
-    if (front == -1) {
-      return;
-    }
-    if (front == rear) {
-      front = rear = -1;
-    } else {
-      front++;
-    }
+  void dequea() {
+    quea.removeAt(front);
+    rear--;
   }
 
-  void printq() {
-    for (int i = front; i <= rear; i++) {
-      print(arry[i]);
+  void show() {
+    for (var i = 0; i < quea.length; i++) {
+      print(quea[i]);
     }
   }
 }

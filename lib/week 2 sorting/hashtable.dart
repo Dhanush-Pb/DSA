@@ -1,13 +1,14 @@
-class node {
+// ignore_for_file: camel_case_types
+
+class Node {
   dynamic key;
   dynamic data;
-  node? next;
-  node(this.key, this.data);
+  Node? next;
+  Node(this.key, this.data);
 }
 
 class hashtable {
-  List<node?>? table;
-
+  List<Node?>? table;
   int size;
 
   hashtable(this.size) {
@@ -16,8 +17,9 @@ class hashtable {
 
   void add(dynamic key, dynamic data) {
     int index = key.hashCode % size;
-    node? newnode = node(key, data);
-    if (table?[index] == null) {
+    Node newnode = Node(key, data);
+
+    if (table == null) {
       table?[index] = newnode;
     } else {
       newnode.next = table?[index];
@@ -27,8 +29,7 @@ class hashtable {
 
   void get(dynamic key) {
     int index = key.hashCode % size;
-    node? temp = table?[index];
-
+    Node? temp = table?[index];
     while (temp != null) {
       if (temp.key == key) {
         print('the $key is ${temp.data}');
@@ -37,11 +38,11 @@ class hashtable {
     }
   }
 
-  void disply() {
+  void displyall() {
     for (var i = 0; i < table!.length; i++) {
-      node? temp = table?[i];
+      Node? temp = table?[i];
       while (temp != null) {
-        print('${temp.key} is  ${temp.data} its index position is $i ');
+        print('${temp.key} is ${temp.data}  index position is $i ');
         temp = temp.next;
       }
     }
@@ -49,7 +50,7 @@ class hashtable {
 
   void remove(dynamic key) {
     int index = key.hashCode % size;
-    node? temp = table?[index], prv;
+    Node? temp = table?[index], prv;
     while (temp != null && temp.key != key) {
       prv = temp;
       temp = temp.next;
@@ -63,12 +64,11 @@ class hashtable {
 
   void update(dynamic key, dynamic newdata) {
     int index = key.hashCode % size;
-    node? temp = table?[index];
-
+    Node? temp = table?[index];
     while (temp != null) {
       if (temp.key == key) {
         temp.data = newdata;
-        print("${temp.key} is ${temp.data}");
+        print('$key is updated');
       }
       temp = temp.next;
     }
@@ -76,10 +76,12 @@ class hashtable {
 }
 
 void main() {
-  hashtable hash = hashtable(6);
-  hash.add("Name", "dhanush");
-  hash.add("age", "19");
-  hash.add("district", "Kannur");
-  hash.add("State", "kerala");
-  hash.update("Name", "yoyo");
+  hashtable hash = hashtable(29);
+  hash.add("Name", "Dhanush");
+  hash.add("Age", "19");
+  hash.add("state", "kerala");
+  hash.add("dist", "kannur");
+  hash.add("phone", "994878");
+  hash.update("Name", "heyyyyy");
+  hash.displyall();
 }

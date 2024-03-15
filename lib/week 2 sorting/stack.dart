@@ -4,12 +4,12 @@ class Node {
   Node(this.data);
 }
 
-// ignore: camel_case_types
 class stack {
-  Node? top;
+  Node? top = null;
 
   void push(int data) {
-    Node? newnode = Node(data);
+    Node newnode = Node(data);
+
     if (top == null) {
       top = newnode;
     } else {
@@ -21,11 +21,12 @@ class stack {
   void pop() {
     if (top == null) {
       return;
+    } else {
+      top = top?.next;
     }
-    top = top?.next;
   }
 
-  void printff() {
+  void printf() {
     Node? temp = top;
     while (temp != null) {
       print(temp.data);
@@ -33,7 +34,24 @@ class stack {
     }
   }
 
-  void duplicateremove() {
+  void midvaluedelete() {
+    Node? temp = top;
+    Node? temp2 = top;
+    Node? prv;
+
+    while (temp2 != null && temp2.next != null) {
+      prv = temp;
+      temp = temp?.next;
+      temp2 = temp2.next?.next;
+    }
+    if (prv != null) {
+      prv.next = temp?.next;
+    } else {
+      top = temp?.next;
+    }
+  }
+
+  void duplicatedele() {
     Node? temp = top;
     while (temp != null) {
       Node runner = temp;
@@ -47,46 +65,76 @@ class stack {
       temp = temp.next;
     }
   }
+
+  void sum() {
+    int sum = 0;
+    Node? temp = top;
+    while (temp != null) {
+      sum = sum + temp.data!;
+      temp = temp.next;
+    }
+  }
+
+  void reverse() {
+    Node? temp = top, prv, next;
+    while (temp != null) {
+      next = temp.next;
+      temp.next = prv;
+      prv = temp;
+      temp = next;
+    }
+    top = prv;
+  }
+
+  stack anoreversd() {
+    stack reversestack = stack();
+
+    Node? temp = top;
+    while (temp != null) {
+      reversestack.push(temp.data!);
+      temp = temp.next;
+    }
+    return reversestack;
+  }
 }
 
 void main() {
   stack st = stack();
-  st.push(20);
 
   st.push(10);
   st.push(20);
   st.push(30);
   st.push(40);
+  st.push(30);
+  st.push(30);
+  st.anoreversd().printf();
+  // arr st = arr();
+//   st.push(10);
+//   st.push(20);
+//   st.push(30);
+//   st.push(40);
 
-  st.duplicateremove();
-  st.printff();
-
-  // Stack st = Stack();
-  // st.push(10);
-  // st.push(20);
-  // st.push(30);
-  // st.push(40);
-  // st.pop();
-  // st.printdst();
+//   st.disply();
+// }
 }
 
 //use arry
 
-class Stack {
-  List<int> arry = [];
-  void push(int data) {
-    arry.add(data);
-  }
+// class arr {
+//   List<int> stack = [];
+//   void push(int data) {
+//     stack.add(data);
+//   }
 
-  void pop() {
-    if (arry.isNotEmpty) {
-      arry.removeLast();
-    }
-  }
+//   void pop() {
+//     if (stack.isNotEmpty) {
+//       stack.removeLast();
+//     }
+//   }
 
-  void printdst() {
-    for (var i = 0; i < arry.length; i++) {
-      print(arry[i]);
-    }
-  }
-}
+//   void disply() {
+//     for (var i = 0; i < stack.length; i++) {
+//       print(stack[i]);
+//     }
+//   }
+// }
