@@ -1,16 +1,18 @@
 class Node {
-  int? data;
   Node? next;
+  int? data;
+
   Node(this.data);
 }
 
 // ignore: camel_case_types
 class quea {
   Node? front;
-
   Node? rear;
+
   void enquea(int data) {
     Node newnode = Node(data);
+
     if (front == null) {
       front = rear = newnode;
     } else {
@@ -22,8 +24,9 @@ class quea {
   void dequea() {
     if (front == null) {
       return;
+    } else {
+      front = front?.next;
     }
-    front = front?.next;
   }
 
   void disply() {
@@ -42,16 +45,7 @@ void main() {
   // q.enquea(40);
   // q.enquea(50);
   // q.enquea(60);
-  // q.enquea(70);
-  // q.enquea(80);
-  // q.enquea(90);
-  // q.enquea(100);
-  // q.enquea(110);
-  // q.enquea(120);
-  // q.dequea();
-  // q.dequea();
-  // q.dequea();
-  // q.dequea();
+
   // q.disply();
 
   list li = list();
@@ -66,6 +60,7 @@ void main() {
 // ignore: camel_case_types
 class list {
   List<int> quea = [];
+
   int front = -1;
   int rear = -1;
   void enquea(int data) {
@@ -73,8 +68,8 @@ class list {
       front = rear = 0;
       quea.add(data);
     } else {
-      quea.add(data);
       rear++;
+      quea.add(data);
     }
   }
 

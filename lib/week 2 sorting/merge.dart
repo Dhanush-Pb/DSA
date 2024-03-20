@@ -1,20 +1,4 @@
-void main() {
-  List<int> unsortedList = [
-    1,
-    3,
-    5,
-    6,
-    7,
-    100,
-    30,
-    200,
-    15,
-  ];
-  List<int> sortedList = merge(unsortedList);
-  print("Sorted List: $sortedList");
-}
-
-List<int> merge(List<int> arr) {
+List<int> mergesort(List<int> arr) {
   if (arr.length <= 1) {
     return arr;
   }
@@ -23,14 +7,13 @@ List<int> merge(List<int> arr) {
   List<int> left = arr.sublist(0, midvalue);
   List<int> right = arr.sublist(midvalue);
 
-  return mer(merge(left), merge(right));
+  return merg(mergesort(left), mergesort(right));
 }
 
-List<int> mer(List<int> left, List<int> right) {
+List<int> merg(List<int> left, List<int> right) {
   List<int> result = [];
   int leftindex = 0;
   int rightindex = 0;
-
   while (leftindex < left.length && rightindex < right.length) {
     if (left[leftindex] < right[rightindex]) {
       result.add(left[leftindex]);
@@ -40,7 +23,14 @@ List<int> mer(List<int> left, List<int> right) {
       rightindex++;
     }
   }
-  result.addAll(left.sublist(leftindex));
-  result.addAll(right.sublist(rightindex));
+
+  result.addAll(mergesort(left).sublist(leftindex));
+  result.addAll(mergesort(right).sublist(rightindex));
   return result;
+}
+
+void main() {
+  List<int> unsortedList = [1, 3, 7, 9, 2, 3, 100, 50, 35];
+  List<int> sortedList = mergesort(unsortedList);
+  print("Sorted List: $sortedList");
 }

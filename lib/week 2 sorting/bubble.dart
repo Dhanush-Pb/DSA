@@ -1,62 +1,18 @@
-void bubble(List<int> arr) {
+void insertionsort(List<int> arr) {
   for (var i = 0; i < arr.length; i++) {
-    for (var j = i + 1; j < arr.length; j++) {
-      if (arr[j] < arr[i]) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-      }
+    int current = arr[i];
+    int j = i - 1;
+    while (j >= 0 && arr[j] > current) {
+      arr[j + 1] = arr[j];
+      j--;
     }
+    arr[j + 1] = current;
   }
 }
 
 void main() {
-  List<int> arr = [
-    1,
-    9,
-    8,
-    5,
-    6,
-    7,
-    3,
-    4,
-    2,
-  ];
-  bubble(arr);
-  print(arr);
+  List<int> unsor = [1, 0, 3, 5, 7, 8, 123, 345];
+
+  insertionsort(unsor);
+  print(unsor);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// void bubble(List<int> arr) {
-//   for (var i = 0; i < arr.length - 1; i++) {
-//     for (var j = i + 1; j < arr.length; j++) {
-//       if (arr[i] > arr[j]) {
-//         int temp = arr[i];
-
-//         arr[i] = arr[j];
-//         arr[j] = temp;
-//       }
-//     }
-//   }
-// }
-
-// void main() {
-//   List<int> arr = [10, 2, 5, 4, 56, 69, 45, 3, 4, 7, 8];
-//   bubble(arr);
-
-//   print(arr);
-// }
