@@ -1,172 +1,3 @@
-class Node {
-  int data;
-  Node? left, right;
-  Node(this.data);
-}
-
-class BST {
-  Node? root;
-
-  void add(int data) {
-    Node nenode = Node(data);
-
-    if (root == null) {
-      root = nenode;
-    } else {
-      Node? temp = root;
-      while (temp != null) {
-        if (data == temp.data) {
-          return;
-        } else if (data > temp.data) {
-          if (temp.right == null) {
-            temp.right = nenode;
-          } else {
-            temp = temp.right;
-          }
-        } else if (temp.left == null) {
-          temp.left = nenode;
-        } else {
-          temp = temp.left;
-        }
-      }
-    }
-  }
-
-  int? findsmallest(Node? root) {
-    while (root!.left != null) {
-      root = root.left;
-    }
-    return root.data;
-  }
-
-  int? findlargest(Node? root) {
-    while (root!.right != null) {
-      root = root.right;
-    }
-    return root.data;
-  }
-
-  int? secondlargest(Node? root) {
-    if (root!.left != null && root.right != null) {
-      return findlargest(root);
-    }
-    if (root.right != null && root.right!.left != null) {
-      return root.data;
-    }
-    return secondhelper(root.right);
-  }
-
-  int secondhelper(Node root) {
-    if (root.right!.right != null) {
-      root = root.right!;
-    }
-    return root.data;
-  }
-
-  void search(int data) {
-    Node? temp = root;
-    while (temp != null) {
-      if (data == temp.data) {
-        print('valu found');
-        return;
-      } else if (data > temp.data) {
-        temp = temp.right;
-      } else {
-        temp = temp.left;
-      }
-    }
-  }
-
-  void intro(Node? root) {
-    print('');
-    introtrav(root);
-  }
-
-  void introtrav(Node? root) {
-    if (root != null) {
-      introtrav(root.left);
-      print(root.data);
-      introtrav(root.right);
-    }
-  }
-
-  void preorde(Node? root) {
-    print('');
-    pre(root);
-  }
-
-  void pre(Node? root) {
-    if (root != null) {
-      print(root.data);
-      pre(root.left);
-      pre(root.right);
-    }
-  }
-
-  void post(Node? root) {
-    print(' ');
-    postorder(root);
-  }
-
-  void postorder(Node? root) {
-    if (root != null) {
-      postorder(root.left);
-      postorder(root.right);
-      print(root.data);
-    }
-  }
-
-  Node? delete(Node? root, int value) {
-    if (root == null) {
-      return null;
-    } else {
-      if (value < root.data) {
-        root.left = delete(root.left, value);
-      } else if (value > root.data) {
-        root.right = delete(root.right, value);
-      } else {
-        if (root.right == null) {
-          return root.left;
-        } else if (root.left == null) {
-          return root.right;
-        }
-        root.data = findmid(root.right).data;
-        root.right = delete(root.right, root.data);
-      }
-    }
-    return root;
-  }
-
-  Node findmid(Node? root) {
-    while (root!.left != null) {
-      root = root.left;
-    }
-    return root;
-  }
-
-  // int closestValue(int target) {
-  //   if (root == null) {
-  //     return -1;
-  //   }
-
-  //   Node? temp = root;
-  //   int closest = temp!.data; // Initialize to the value of the root node
-  //   while (temp != null) {
-  //     if ((target - closest).abs() > (target - temp.data)) {
-  //       closest = temp.data;
-  //     }
-  //     if (target > temp.data) {
-  //       temp = temp.right;
-  //     } else if (target < temp.data) {
-  //       temp = temp.left;
-  //     } else {
-  //       break;
-  //     }
-  //   }
-  //   return closest;
-  // }
-}
-
 void main() {
   BST bst = BST();
 
@@ -190,7 +21,186 @@ void main() {
   bst.add(1);
   bst.add(2);
   bst.add(14);
+  bst.search(1);
+  bst.delete(bst.root, 210);
+  // print('${bst.findsecondlargest(bst.root)} dfgh');
+  bst.ISBSTOR(bst.root);
+  bst.indro(bst.root);
+  print('${bst.findseconlargest(bst.root)} is largest');
+  print(' closet value is ${bst.closet(14)}');
+}
 
-  bst.post(bst.root);
-  print(' ${bst.findlargest(bst.root)} klasdhghadg');
+class Node {
+  int data;
+  Node? left, right;
+
+  Node(this.data);
+}
+
+class BST {
+  Node? root;
+  void add(int data) {
+    Node nenode = Node(data);
+    if (root == null) {
+      root = nenode;
+    } else {
+      Node? temp = root;
+      while (temp != null) {
+        if (data == temp.data) {
+          return;
+        } else {
+          if (data > temp.data) {
+            if (temp.right == null) {
+              temp.right = nenode;
+              return;
+            } else {
+              temp = temp.right;
+            }
+          } else if (temp.left == null) {
+            temp.left = nenode;
+            return;
+          } else {
+            temp = temp.left;
+          }
+        }
+      }
+    }
+  }
+
+  void search(int data) {
+    Node? temp = root;
+    while (temp != null) {
+      if (temp.data == data) {
+        print('value founded');
+        return;
+      } else if (data < temp.data) {
+        temp = temp.left;
+      } else if (data > temp.data) {
+        temp = temp.right;
+      } else {
+        break;
+      }
+    }
+  }
+
+  void indro(Node? root) {
+    print('');
+    indrotravers(root);
+  }
+
+  void indrotravers(Node? root) {
+    if (root != null) {
+      indrotravers(root.left);
+      print(root.data);
+      indrotravers(root.right);
+    }
+  }
+
+  void pre(Node? root) {
+    print('');
+    preorder(root);
+  }
+
+  void preorder(Node? root) {
+    if (root != null) {
+      print(root.data);
+      preorder(root.left);
+      preorder(root.right);
+    }
+  }
+
+  findlargest(Node? root) {
+    while (root!.right != null) {
+      root = root.right;
+    }
+    return root.data;
+  }
+
+  findseconlargest(Node? root) {
+    if (root!.right == null && root.left != null) {
+      return findlargest(root.left);
+    }
+    if (root.right != null &&
+        root.right!.left == null &&
+        root.right!.right == null) {
+      return root.data;
+    }
+    return findseconlargest(root.right);
+  }
+
+  delete(Node? root, int value) {
+    if (root == null) {
+      return null;
+    } else {
+      if (value < root.data) {
+        root.left = delete(root.left, value);
+      } else if (value > root.data) {
+        root.right = delete(root.right, value);
+      } else {
+        if (root.right == null) {
+          return root.left;
+        } else if (root.left == null) {
+          return root.right;
+        }
+        root.data = findminim(root.right).data;
+        root.right = findminim(root.right);
+      }
+    }
+    return root;
+  }
+
+  Node findminim(Node? root) {
+    while (root!.left != null) {
+      root = root.left!;
+    }
+    return root;
+  }
+
+  isbst(Node? root, int? max, int? min) {
+    if (root == null) {
+      return true;
+    }
+    if ((min != null && min <= root.data && max != null && max >= root.data)) {
+      return false;
+    }
+    return isbst(root.left, max, root.data) &&
+        isbst(root.right, root.data, min);
+  }
+
+  // ignore: non_constant_identifier_names
+  void ISBSTOR(Node? root) {
+    if (isbst(root, null, null)) {
+      print('is bst');
+    } else {
+      print('nothing');
+    }
+  }
+
+  int closet(int target) {
+    if (root == null) {
+      return -1; // or any default value indicating no value found
+    }
+
+    Node? temp = root;
+    int closest = temp!.data;
+
+    while (temp != null) {
+      // Update closest if the current node's value is closer to the target
+      if ((target - closest).abs() > (target - temp.data).abs()) {
+        closest = temp.data;
+      }
+
+      // Traverse left or right based on the target value
+      if (target < temp.data) {
+        temp = temp.left;
+      } else if (target > temp.data) {
+        temp = temp.right;
+      } else {
+        // If target is found, no need to traverse further
+        break;
+      }
+    }
+
+    return closest;
+  }
 }

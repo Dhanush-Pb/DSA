@@ -1,19 +1,32 @@
-// ignore: camel_case_types
+// ignore_for_file: camel_case_types
+
+void main() {
+  minheap heap = minheap();
+  heap.insert([
+    50,
+    40,
+    30,
+    20,
+    10,
+  ]);
+
+  print(heap.heap);
+}
+
 class minheap {
   List<int> heap = [];
 
   void insert(List<int> arr) {
     for (var i = 0; i < arr.length; i++) {
       heap.add(arr[i]);
-      heapup();
+      hepup();
     }
   }
 
-  void heapup() {
+  void hepup() {
     int currentindex = heap.length - 1;
     while (currentindex > 0) {
       int parentindex = (currentindex - 1) ~/ 2;
-
       if (heap[currentindex] < heap[parentindex]) {
         swap(currentindex, parentindex);
         currentindex = parentindex;
@@ -26,24 +39,22 @@ class minheap {
   void remove() {
     int minvalue = heap.removeLast();
     heap[0] = minvalue;
-
-    heapdouwn(0);
+    heapdown(0);
   }
 
-  void heapdouwn(int currentindex) {
-    int minvalue = currentindex;
-
+  heapdown(int currentindex) {
+    int minvalu = currentindex;
     int leftindex = 2 * currentindex + 1;
     int rightindex = 2 * currentindex + 2;
-    if (rightindex < heap.length && heap[rightindex] < heap[minvalue]) {
-      minvalue = rightindex;
+    if (leftindex < heap.length && heap[leftindex] < heap[minvalu]) {
+      minvalu = leftindex;
     }
-    if (leftindex < heap.length && heap[leftindex] < heap[minvalue]) {
-      minvalue = leftindex;
+    if (rightindex < heap.length && heap[rightindex] < heap[minvalu]) {
+      minvalu = rightindex;
     }
-    if (currentindex != minvalue) {
-      swap(currentindex, minvalue);
-      heapdouwn(minvalue);
+    if (currentindex != minvalu) {
+      swap(currentindex, minvalu);
+      heapdown(minvalu);
     }
   }
 
@@ -52,10 +63,4 @@ class minheap {
     heap[currentindex] = heap[parentindex];
     heap[parentindex] = temp;
   }
-}
-
-void main() {
-  minheap min = minheap();
-  min.insert([12, 45, 3, 67, 8, 9, 3, 2]);
-  print(min.heap);
 }

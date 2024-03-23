@@ -1,64 +1,71 @@
-// ignore_for_file: file_names
-class TriNode {
-  Map<String, TriNode> children = {};
-  bool isendof = false;
+class Trinode {
+  Map<String, Trinode> charecter = {};
+
+  bool isendofword = false;
 }
 
-class Trie {
-  TriNode root = TriNode();
+class Tri {
+  Trinode root = Trinode();
 
-  void insert(String words) {
-    TriNode current = root;
-    for (int i = 0; i < words.length; i++) {
-      String char = words[i];
-      current.children.putIfAbsent(char, () => TriNode());
-      current = current.children[char]!;
+  void insert(String word) {
+    Trinode temp = root;
+
+    for (var i = 0; i < word.length; i++) {
+      String char = word[i];
+      temp.charecter.putIfAbsent(char, () => Trinode());
+
+      temp = temp.charecter[char]!;
     }
-    current.isendof = true;
+    temp.isendofword = true;
   }
 
-  bool startwith(String prefix) {
-    TriNode node = root;
-    for (String char in prefix.split('')) {
-      if (!node.children.containsKey(char)) {
+  bool search(String word) {
+    Trinode temp = root;
+    for (var char in word.split('')) {
+      if (!temp.charecter.containsKey(char)) {
         return false;
       }
-      node = node.children[char]!;
+
+      temp = temp.charecter[char]!;
     }
     return true;
   }
 
   List<String> prefix(String prefix) {
     List<String> result = [];
-    TriNode node = root;
-    for (String char in prefix.split('')) {
-      if (!node.children.containsKey(char)) {
+    Trinode temp = root;
+    for (var char in prefix.split('')) {
+      if (!temp.charecter.containsKey(char)) {
+        // ignore: unnecessary_brace_in_string_interps
+        print('${prefix} is not this list');
         return result;
       }
-      node = node.children[char]!;
+
+      temp = temp.charecter[char]!;
     }
-    prefixheler(node, prefix, result);
+    prefixhelper(temp, prefix, result);
     return result;
   }
 
-  void prefixheler(TriNode node, String curentprefix, List<String> results) {
-    if (node.isendof) {
-      results.add(curentprefix);
+  void prefixhelper(Trinode node, String currentword, List<String> result) {
+    if (node.isendofword) {
+      result.add(currentword);
     }
-    for (String char in node.children.keys) {
-      prefixheler(node.children[char]!, curentprefix + char, results);
+    for (var char in node.charecter.keys) {
+      prefixhelper(node.charecter[char]!, currentword + char, result);
     }
   }
 }
 
+//
 void main() {
-  // Create an instance of the Trie class
-  Trie trie = Trie();
-
-  // Insert words into the trie
-  trie.insert("Apple");
-  trie.insert("cat");
-
-  print(trie.startwith("cat"));
-  print(trie.prefix("ca"));
+  Tri trie = Tri();
+  trie.insert("apple");
+  trie.insert('banana');
+  trie.insert('application');
+  print(trie.search("apple"));
+  print(trie.search("app"));
+  print(trie.prefix("ba"));
+  print(trie.prefix("watermelone"));
+  print(trie.prefix("ap"));
 }
