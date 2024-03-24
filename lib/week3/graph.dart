@@ -1,7 +1,19 @@
+void main() {
+  Graph grap = Graph();
+  grap.insert(10, 14);
+  grap.insert(10, 15);
+  grap.insert(19, 10);
+  grap.insert(10, 17);
+  grap.insert(10, 18);
+  grap.insert(17, 19);
+  grap.insert(17, 20);
+  grap.bfs(10);
+}
+
 class Graph {
   Map<int, List<int>> graph = {};
 
-  void insert(int vertix, int edge, [bool isendofword = false]) {
+  void insert(int vertix, int edge, [bool isbidirectional = false]) {
     if (!graph.containsKey(vertix)) {
       graph[vertix] = [];
     }
@@ -9,12 +21,12 @@ class Graph {
       graph[edge] = [];
     }
     graph[vertix]!.add(edge);
-    if (isendofword) {
+    if (isbidirectional) {
       graph[edge]!.add(vertix);
     }
   }
 
-  showedges(int vertix) {
+  void showedges(int vertix) {
     if (graph.containsKey(vertix)) {
       print(graph[vertix]);
     }
@@ -22,16 +34,16 @@ class Graph {
 
   bfs(int vertix) {
     Set<int> visited = {};
-    List<int> quea = [];
-    visited.add(vertix);
-    quea.add(vertix);
+    List<int> que = [];
 
-    while (quea.isNotEmpty) {
-      int current = quea.removeAt(0);
+    visited.add(vertix);
+    que.add(vertix);
+    while (que.isNotEmpty) {
+      int current = que.removeAt(0);
       for (var i in graph[current]!) {
         if (!visited.contains(i)) {
           visited.add(i);
-          quea.add(i);
+          que.add(i);
         }
       }
     }
@@ -41,102 +53,23 @@ class Graph {
   dfs(int vertix) {
     if (graph.containsKey(vertix)) {
       Set<int> visited = {};
-      dfshealper(vertix, visited);
-      print(visited);
+      dfshelper(vertix, visited);
+      print(visited.toList());
     }
   }
 
-  dfshealper(int vertix, Set<int> visited) {
+  dfshelper(int vertix, Set<int> visited) {
     visited.add(vertix);
     for (var i in graph[vertix]!) {
       if (!visited.contains(i)) {
-        dfshealper(i, visited);
+        dfshelper(i, visited);
       }
     }
   }
 
-  disply() {
+  void display() {
     graph.forEach((key, vertix) {
       print('$key:$vertix');
     });
   }
 }
-
-void main() {
-  Graph grap = Graph();
-  grap.insert(10, 14);
-  grap.insert(10, 15);
-  grap.insert(10, 16);
-  grap.insert(10, 17);
-  grap.insert(10, 18);
-  grap.insert(17, 19);
-  grap.insert(17, 20);
-  grap.disply();
-}
-
-// class Graph {
-//   Map<int, List<int>> graph = {};
-
-//   void insert(int vertix, int edge, [bool isbidimensinol = false]) {
-//     if (!graph.containsKey(vertix)) {
-//       graph[vertix] = [];
-//     }
-//     if (!graph.containsKey(edge)) {
-//       graph[edge] = [];
-//     }
-//     graph[vertix]!.add(edge);
-//     if (isbidimensinol) {
-//       graph[edge]!.add(vertix);
-//     }
-//   }
-
-//   showedges(int vertix) {
-//     if (graph.containsKey(vertix)) {
-//       print(graph[vertix]);
-//     } else {
-//       print('nothinng');
-//     }
-//   }
-
-//   bfs(int vertix) {
-//     Set<int> visited = {};
-//     List<int> quea = [];
-
-//     visited.add(vertix);
-//     quea.add(vertix);
-//     while (quea.isNotEmpty) {
-//       int current = quea.removeAt(0);
-
-//       for (int i in graph[current]!) {
-//         if (!visited.contains(i)) {
-//           visited.add(i);
-//           quea.add(i);
-//         }
-//       }
-//     }
-//     print(visited);
-//   }
-
-//   dfs(int vertix) {
-//     if (graph.containsKey(vertix)) {
-//       Set<int> visited = {};
-//       dfshelper(vertix, visited);
-//       print(visited);
-//     }
-//   }
-
-//   dfshelper(int vertix, Set<int> visited) {
-//     visited.add(vertix);
-//     for (var i in graph[vertix]!) {
-//       if (!visited.contains(i)) {
-//         dfshelper(i, visited);
-//       }
-//     }
-//   }
-
-//   void disply() {
-//     graph.forEach((key, vertix) {
-//       print('$key:$vertix');
-//     });
-//   }
-// }

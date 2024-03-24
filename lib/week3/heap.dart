@@ -15,16 +15,16 @@ void main() {
 
 class minheap {
   List<int> heap = [];
-
   void insert(List<int> arr) {
     for (var i = 0; i < arr.length; i++) {
       heap.add(arr[i]);
-      hepup();
+      heapfyup();
     }
   }
 
-  void hepup() {
+  heapfyup() {
     int currentindex = heap.length - 1;
+
     while (currentindex > 0) {
       int parentindex = (currentindex - 1) ~/ 2;
       if (heap[currentindex] < heap[parentindex]) {
@@ -37,24 +37,25 @@ class minheap {
   }
 
   void remove() {
-    int minvalue = heap.removeLast();
-    heap[0] = minvalue;
-    heapdown(0);
+    int minvalu = heap.removeLast();
+    heap[0] = minvalu;
+    hepafydown(0);
   }
 
-  heapdown(int currentindex) {
-    int minvalu = currentindex;
-    int leftindex = 2 * currentindex + 1;
-    int rightindex = 2 * currentindex + 2;
-    if (leftindex < heap.length && heap[leftindex] < heap[minvalu]) {
-      minvalu = leftindex;
+  void hepafydown(int curentindex) {
+    int minvalu = curentindex;
+
+    int left = 2 * curentindex + 1;
+    int right = 2 * curentindex + 2;
+    if (left < heap.length && heap[left] < heap[minvalu]) {
+      minvalu = left;
     }
-    if (rightindex < heap.length && heap[rightindex] < heap[minvalu]) {
-      minvalu = rightindex;
+    if (right < heap.length && heap[right] < heap[minvalu]) {
+      minvalu = right;
     }
-    if (currentindex != minvalu) {
-      swap(currentindex, minvalu);
-      heapdown(minvalu);
+    if (curentindex != minvalu) {
+      swap(curentindex, minvalu);
+      hepafydown(minvalu);
     }
   }
 
